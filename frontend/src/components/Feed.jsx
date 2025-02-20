@@ -11,9 +11,12 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col gap-8 m-3">
-      {questions.map((question) => (
-        <Post key={question._id} question={question} />
-      ))}
+      {questions
+        .slice()
+        .reverse()
+        .map((question) => (
+          <Post key={question._id} question={question} />
+        ))}
     </div>
   );
 };

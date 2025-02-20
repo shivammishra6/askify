@@ -57,7 +57,7 @@ const Post = ({ question }) => {
         <motion.button
           onClick={updateLikes}
           whileTap={{ scale: 0.8 }}
-          className={`p-1 rounded-lg flex items-center space-x-2 transition-all ${
+          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all ${
             liked ? "bg-blue-500 text-white" : "bg-gray-200"
           }`}
         >
@@ -68,7 +68,7 @@ const Post = ({ question }) => {
         <motion.button
           onClick={updateDislikes}
           whileTap={{ scale: 0.8 }}
-          className={`p-1 rounded-lg flex items-center space-x-2 transition-all ${
+          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all ${
             disliked ? "bg-red-500 text-white" : "bg-gray-200"
           }`}
         >
