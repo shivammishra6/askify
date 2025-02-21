@@ -1,7 +1,8 @@
 import Question from "../models/question.model.js";
+import Comment from "../models/comment.model.js";
 import mongoose from "mongoose";
 
-export const getQuestions = async (req, res) => {
+export const getQuestions = async (_, res) => {
   try {
     const questions = await Question.find({});
     res.status(200).json({ success: true, data: questions });
@@ -20,7 +21,8 @@ export const createQuestion = async (req, res) => {
     !question.username ||
     !question.question ||
     question.likes === undefined || 
-    question.dislikes === undefined
+    question.dislikes === undefined||
+    question.comments===undefined
   ) {
     return res
       .status(400)
@@ -55,3 +57,16 @@ export const updateLikes = async (req, res) => {
     res.status(500).json({ success: false, message: "couldn't update likes" });
   }
 };
+
+export const getComments=async(req,res)=>{
+  const {id}=req.params;
+  try {
+    const comments= await Comment.find({qid:id})
+    res.status(200).json({ success: true, data: comments });
+  } catch (error) {
+    console.log("Error in get comments: ", error.message);
+    res
+      .status(200)
+      .json({ success: false, message: "comments couldn't be fetched" }); 
+  }
+}

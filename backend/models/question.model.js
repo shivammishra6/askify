@@ -16,6 +16,10 @@ const questionSchema = new mongoose.Schema({
     dislikes:{
         type:Number,
         required:true
+    },
+    comments:{
+        type:Number,
+        required:true
     }
 })
 

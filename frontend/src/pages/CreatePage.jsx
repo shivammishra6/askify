@@ -10,7 +10,8 @@ const CreatePage = () => {
     username: user.fullName,
     question: "",
     likes:0,
-    dislikes: 0
+    dislikes: 0,
+    comments:0
   });
 
   const { createQuestion } = useQuestionStore();

@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ThumbsUp, ThumbsDown } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react";
 import { useQuestionStore } from "../store/question";
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ question }) => {
+  const navigate=useNavigate()
+
   const { updateQuestion } = useQuestionStore();
 
   const [likes, setLikes] = useState(question.likes);
   const [dislikes, setDislikes] = useState(question.dislikes);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
+
+  const handleCommentClick=()=>{
+    navigate('/comments', { state: { questionId: question._id } });
+  }
 
   const handleLike = () => {
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
@@ -52,8 +59,8 @@ const Post = ({ question }) => {
   return (
     <div>
       <p className="text-[14px]">{question.username}</p>
-      <p className="text-[17px] font-bold">{question.question}</p>
-      <div className="flex space-x-4 mt-2">
+      <p className="text-[18px] font-bold">{question.question}</p>
+      <div className="flex space-x-3 mt-2">
         <motion.button
           onClick={updateLikes}
           whileTap={{ scale: 0.8 }}
@@ -75,6 +82,16 @@ const Post = ({ question }) => {
           <ThumbsDown className="w-4 h-4" />
           <span>{dislikes}</span>
         </motion.button>
+
+        <motion.button
+          onClick={handleCommentClick}
+          whileTap={{ scale: 0.8 }}
+          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all bg-gray-200`}
+        >
+           <MessageSquare className="w-4 h-4"/>
+          <span>{question.comments}</span>
+        </motion.button>
+
       </div>
     </div>
   );

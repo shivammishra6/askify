@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { SignedIn, SignedOut, SignIn, UserButton } from "@clerk/clerk-react";
 import CreatePage from "./pages/CreatePage";
 import { Link } from "react-router-dom"; // Correct import
+import Comments from "./pages/Comments";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Feed />} />
           <Route path="/create" element={<CreatePage />} />
+          <Route path="/comments" element={<Comments/>}/>
         </Routes>
       </SignedIn>
     </>
