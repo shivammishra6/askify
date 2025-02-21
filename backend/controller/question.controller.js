@@ -13,6 +13,31 @@ export const getQuestions = async (req, res) => {
   }
 };
 
+export const createQuestion = async (req, res) => {
+  const question = req.body;
+
+  if (
+    !question.username ||
+    !question.question ||
+    question.likes === undefined || 
+    question.dislikes === undefined
+  ) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Please provide all fields" });
+  }
+
+  const newQuestion = new Question(question);
+
+  try {
+    await newQuestion.save();
+    res.status(201).json({ success: true, data: newQuestion });
+  } catch (error) {
+    console.log("Error in creating question: ", error.message);
+    res.status(200).json({ success: false, message: "question not created" });
+  }
+};
+
 export const updateLikes = async (req, res) => {
   const { id } = req.params;
   const question = req.body;

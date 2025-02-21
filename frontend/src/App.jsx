@@ -1,5 +1,8 @@
 import Feed from "./components/Feed";
+import { Route, Routes } from "react-router-dom";
 import { SignedIn, SignedOut, SignIn, UserButton } from "@clerk/clerk-react";
+import CreatePage from "./pages/CreatePage";
+import { Link } from "react-router-dom"; // Correct import
 
 function App() {
   return (
@@ -11,7 +14,13 @@ function App() {
       </SignedOut>
       <SignedIn>
         <UserButton />
-        <Feed />
+        <Link to="/create" className="btn">
+          Create
+        </Link>
+        <Routes>
+          <Route path="/" element={<Feed />} />
+          <Route path="/create" element={<CreatePage />} />
+        </Routes>
       </SignedIn>
     </>
   );

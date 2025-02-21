@@ -3,7 +3,7 @@ import { create } from "zustand";
 export const useQuestionStore = create((set) => ({
   questions: [],
   setQuestions: (questions) => set({ questions }),
-  
+
   fetchQuestions: async () => {
     const res = await fetch("/api/questions");
     const data = await res.json();
@@ -29,4 +29,29 @@ export const useQuestionStore = create((set) => ({
 
     return { success: true, message: data.message };
   },
+
+  createQuestion: async (newQuestion) => {
+    if (
+      !newQuestion.username ||
+      !newQuestion.question ||
+      newQuestion.likes === undefined || 
+      newQuestion.dislikes === undefined
+    ) {
+      return { success: false, message: "please fill all the fields" };
+    }
+
+    const res = await fetch("/api/questions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newQuestion),
+    });
+
+    const data=await res.json()
+    set((state)=>({questions:[...state.questions,data.data]}))
+    return {success:true, message:"question created successfully"}
+  }
+
+
 }));
