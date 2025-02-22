@@ -38,12 +38,15 @@ const Comments = () => {
         Answer
       </button>
 
-      {comments.map((comment) => (
-        <div key={comment._id}>
-          <p className="text-[14px]">{comment.username}</p>
-          <p className="text-[18px] font-bold">{comment.comment}</p>
-        </div>
-      ))}
+      {comments
+        .slice()
+        .reverse()
+        .map((comment) => (
+          <div key={comment._id}>
+            <p className="text-[14px]">{comment.username}</p>
+            <p className="text-[18px] font-bold">{comment.comment}</p>
+          </div>
+        ))}
 
       {comments.length === 0 && (
         <div className="flex flex-col items-center justify-center h-64 text-gray-600">
