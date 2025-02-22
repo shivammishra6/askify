@@ -8,10 +8,10 @@ const CreatePage = () => {
   const navigate = useNavigate(); // Initialize navigate
   const [newQuestion, setNewQuestion] = useState({
     username: user.fullName,
+    userId:user.id,
     question: "",
     likes:0,
-    dislikes: 0,
-    comments:0
+    dislikes: 0
   });
 
   const { createQuestion } = useQuestionStore();

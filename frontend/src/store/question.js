@@ -36,7 +36,7 @@ export const useQuestionStore = create((set) => ({
       !newQuestion.question ||
       newQuestion.likes === undefined || 
       newQuestion.dislikes === undefined||
-      newQuestion.comments===undefined
+      !newQuestion.userId
     ) {
       return { success: false, message: "please fill all the fields" };
     }
@@ -60,6 +60,25 @@ export const useQuestionStore = create((set) => ({
 export const useCommentStore=create((set)=>({
   comments:[],
   setComments:(comments)=>set({comments}),
+
+  createComment:async(newComment)=>{
+    if(!newComment.qid || !newComment.username || !newComment.comment) {
+      return { success: false, message: "please fill all the fields" };
+    }
+
+    const res = await fetch("/api/questions/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    });
+
+    const data=await res.json()
+    set((state)=>({comments:[...state.comments,data.data]}))
+    return {success:true, message:"question created successfully"}
+
+  },
 
   fetchComments: async (qid) => {
     const res = await fetch(`/api/questions/comments/${qid}`);

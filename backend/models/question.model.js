@@ -17,9 +17,9 @@ const questionSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    comments:{
-        type:Number,
-        required:true
+    userId:{
+      type:String,
+      required:true
     }
 })
 

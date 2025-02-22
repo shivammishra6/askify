@@ -1,13 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCommentStore, useQuestionStore } from "../store/question";
 import { useLocation } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
+import { useUser } from "@clerk/clerk-react";
 
 const Comments = () => {
+  const { user } = useUser();
   const location = useLocation();
   const { questionId } = location.state || {};
   const { fetchQuestions, questions } = useQuestionStore();
   const { fetchComments, comments } = useCommentStore();
+  const [submitted, setSubmitted] = useState(false);
+  const {createComment}=useCommentStore()
+
+  const [newComment, setNewComment] = useState({
+    qid: questionId,
+    username: user.fullName,
+    comment: "",
+  });
 
   useEffect(() => {
     fetchQuestions();
@@ -16,6 +26,24 @@ const Comments = () => {
   useEffect(() => {
     fetchComments(questionId);
   }, [fetchComments]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitted(true); // Trigger validation
+  
+    if (!newComment.comment.trim()) return; // Prevent empty submissions
+  
+    const { success, message } = await createComment(newComment);
+  
+    console.log("Success:", success);
+    console.log("Message:", message);
+  
+    if (success) {
+      setNewComment({ ...newComment, comment: "" });
+      setSubmitted(false); // Reset validation after successful submission
+    }
+  };
+  
 
   return (
     <div>
@@ -30,11 +58,25 @@ const Comments = () => {
 
       <input
         type="text"
+        value={newComment.comment}
+        onChange={(e) =>
+          setNewComment({ ...newComment, comment: e.target.value })
+        }
         placeholder="Write your answer..."
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+        className={`w-full px-4 py-2 border ${
+          submitted && !newComment.comment
+            ? "border-red-500"
+            : "border-gray-300"
+        } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
       />
+      {submitted && !newComment.comment && (
+        <p className="text-red-500 text-sm mt-1">Answer cannot be empty.</p>
+      )}
 
-      <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+      <button
+        onClick={handleSubmit}
+        className="px-4 py-2 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+      >
         Answer
       </button>
 

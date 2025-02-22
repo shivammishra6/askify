@@ -89,7 +89,7 @@ const Post = ({ question }) => {
           className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all bg-gray-200`}
         >
            <MessageSquare className="w-4 h-4"/>
-          <span>{question.comments}</span>
+          <span>Answer</span>
         </motion.button>
 
       </div>
