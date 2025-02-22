@@ -7,7 +7,7 @@ import router from './routes/question.route.js'
 
 dotenv.config()
 const app=express()
-const PORT=process.env.PORT
+const PORT=process.env.PORT||10000
 const __dirname=path.resolve()
 app.use(express.json())
 
@@ -22,7 +22,7 @@ if(process.env.NODE_ENV==="production"){
     
 }
 
-app.listen(PORT,()=>{
+app.listen(PORT,'0.0.0.0',()=>{
     connectDB();
     console.log(`server started at http://localhost:${PORT}`);
 })

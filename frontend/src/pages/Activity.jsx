@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
-import { useUser } from "@clerk/clerk-react";
+import React from "react";
 
 const Activity = () => {
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      console.log("User Data:", user);
-    }
-  }, [user]); // Log user data when it becomes available
 
   return (
     <div>
-      <p>Your activity</p>
+      <button>your questions</button>
+      <button>your answers</button>
     </div>
   );
 };
