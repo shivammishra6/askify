@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageSquare, Trash } from "lucide-react";
 import { useQuestionStore } from "../store/question";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 
 const Post = ({ question }) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const { user } = useUser();
 
   const { updateQuestion } = useQuestionStore();
 
@@ -14,9 +16,20 @@ const Post = ({ question }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
-  const handleCommentClick=()=>{
-    navigate('/comments', { state: { questionId: question._id } });
-  }
+  const { deleteQuestion } = useQuestionStore();
+
+  const handleDelete = async () => {
+    const { success } = await deleteQuestion(question._id);
+    if (!success) {
+      console.log("not deleted");
+    } else {
+      console.log("deleted");
+    }
+  };
+
+  const handleCommentClick = () => {
+    navigate("/comments", { state: { questionId: question._id } });
+  };
 
   const handleLike = () => {
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
@@ -88,10 +101,15 @@ const Post = ({ question }) => {
           whileTap={{ scale: 0.8 }}
           className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all bg-gray-200`}
         >
-           <MessageSquare className="w-4 h-4"/>
+          <MessageSquare className="w-4 h-4" />
           <span>Answer</span>
         </motion.button>
 
+        {question.userId === user.id && (
+          <motion.button className="text-[red]" onClick={handleDelete}>
+            <Trash className="w-4 h-4" />
+          </motion.button>
+        )}
       </div>
     </div>
   );

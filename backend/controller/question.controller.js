@@ -90,3 +90,32 @@ export const getComments = async (req, res) => {
       .json({ success: false, message: "comments couldn't be fetched" });
   }
 };
+
+export const getUserQuestions=async(req,res)=>{
+  const {id} = req.params;
+  try {
+    const questions = await Question.find({userId:id});
+    res.status(200).json({ success: true, data: questions });
+  } catch (error) {
+    console.log("Error in get questions: ", error.message);
+    res
+      .status(200)
+      .json({ success: false, message: "questions couldn't be fetched" });
+  }
+}
+
+export const deleteQuestion=async(req,res)=>{
+  const {id}=req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        res.status(404).json({ success:false, message:"invalid id"})
+    }
+
+    try {
+      await Question.findByIdAndDelete(id);
+      res.status(200).json({success:true, message:"question deleted"})
+    } catch (error) {
+      console.log("Error in delete question: ",error.message);
+      res.status(500).json({success:false, message:"question not found"})
+    }
+}
