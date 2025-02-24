@@ -101,4 +101,10 @@ export const useCommentStore = create((set) => ({
     const data = await res.json();
     set({ comments: data.data });
   },
+
+  fetchUserComments:async(userId)=>{
+    const res = await fetch(`/api/questions/getUserComments/${userId}`);
+    const data = await res.json();
+    set({ comments: data.data });
+  }
 }));

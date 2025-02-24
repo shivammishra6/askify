@@ -43,7 +43,7 @@ export const createQuestion = async (req, res) => {
 export const createComment = async (req, res) => {
   const comment = req.body;
 
-  if (!comment.username || !comment.qid || !comment.comment) {
+  if (!comment.username || !comment.qid || !comment.comment || !comment.userId) {
     return res
       .status(400)
       .json({ success: false, message: "Please provide all fields" });
@@ -90,6 +90,19 @@ export const getComments = async (req, res) => {
       .json({ success: false, message: "comments couldn't be fetched" });
   }
 };
+
+export const getUserComments=async(req,res)=>{
+  const { userId } = req.params;
+  try {
+    const comments = await Comment.find({ userId: userId });
+    res.status(200).json({ success: true, data: comments });
+  } catch (error) {
+    console.log("Error in get comments: ", error.message);
+    res
+      .status(200)
+      .json({ success: false, message: "comments couldn't be fetched" });
+  }
+}
 
 export const getUserQuestions=async(req,res)=>{
   const {id} = req.params;

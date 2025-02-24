@@ -17,6 +17,7 @@ const Comments = () => {
     qid: questionId,
     username: user.fullName,
     comment: "",
+    userId:user.id
   });
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Comments = () => {
   }, [fetchQuestions]);
 
   useEffect(() => {
-    fetchComments(questionId);
+    fetchComments(newComment.qid);
   }, [fetchComments]);
 
   const handleSubmit = async (e) => {
@@ -87,6 +88,7 @@ const Comments = () => {
           <div key={comment._id}>
             <p className="text-[14px]">{comment.username}</p>
             <p className="text-[18px] font-bold">{comment.comment}</p>
+
           </div>
         ))}
 

@@ -4,7 +4,7 @@ import {useUser} from '@clerk/clerk-react'
 import { useQuestionStore } from "../store/question";
 
 const Activity = () => {
-  const {user }=useUser()
+  const { user }=useUser()
   const { fetchUserQuestions, questions } = useQuestionStore();
 
   useEffect(() => {
@@ -13,8 +13,7 @@ const Activity = () => {
 
   return (
     <div>
-      <button>your questions</button>
-      <button>your answers</button>
+      <p>Your questions</p>
       <div className="flex flex-col gap-8 m-3">
       {questions
         .slice()
