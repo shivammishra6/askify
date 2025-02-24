@@ -5,6 +5,7 @@ import CreatePage from "./pages/CreatePage";
 import { Link } from "react-router-dom"; // Correct import
 import Comments from "./pages/Comments";
 import Activity from "./pages/Activity";
+import Update from "./pages/Update";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Link to="/activity">Your activity</Link>
         <Routes>
           <Route path="/" element={<Feed />} />
+          <Route path="/update" element={<Update/>} />
           <Route path="/activity" element={<Activity/>} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/comments" element={<Comments />} />

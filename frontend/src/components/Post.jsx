@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ThumbsUp, ThumbsDown, MessageSquare, Trash } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageSquare, Trash, Pen } from "lucide-react";
 import { useQuestionStore } from "../store/question";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
@@ -29,6 +29,10 @@ const Post = ({ question }) => {
 
   const handleCommentClick = () => {
     navigate("/comments", { state: { questionId: question._id } });
+  };
+
+  const handleUpdate = () => {
+    navigate("/update", { state: {question:question } });
   };
 
   const handleLike = () => {
@@ -106,9 +110,14 @@ const Post = ({ question }) => {
         </motion.button>
 
         {question.userId === user.id && (
+          <div>
           <motion.button className="text-[red]" onClick={handleDelete}>
             <Trash className="w-4 h-4" />
           </motion.button>
+          <motion.button onClick={handleUpdate}>
+            <Pen className="h-4 w-4"/>
+          </motion.button>
+          </div>
         )}
       </div>
     </div>
