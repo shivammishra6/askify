@@ -32,16 +32,16 @@ const CreatePage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-gray-700 text-center mb-4">
+    <div className="flex justify-center items-center h-screen bg-[#2e2d2c] p-4">
+      <div className="bg-black text-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-center mb-4">
           Ask a Question
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="question"
-              className="block text-gray-600 mb-1 font-medium"
+              className="block text-gray-400 mb-1 font-medium"
             >
               Your Question
             </label>

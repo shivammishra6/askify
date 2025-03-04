@@ -10,7 +10,7 @@ const Feed = () => {
   }, [fetchQuestions]);
 
   return (
-    <div className="flex flex-col gap-8 m-3">
+    <div className="flex flex-col max-w-[600px] m-4 mt-8">
       {questions
         .slice()
         .reverse()

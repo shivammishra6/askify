@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ThumbsUp, ThumbsDown, MessageSquare, Trash, Pen } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageSquare, Pen, Trash2 } from "lucide-react";
 import { useQuestionStore } from "../store/question";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
@@ -32,7 +32,7 @@ const Post = ({ question }) => {
   };
 
   const handleUpdate = () => {
-    navigate("/update", { state: {question:question } });
+    navigate("/update", { state: { question: question } });
   };
 
   const handleLike = () => {
@@ -74,15 +74,15 @@ const Post = ({ question }) => {
   };
 
   return (
-    <div>
+    <div className="mb-10">
       <p className="text-[14px]">{question.username}</p>
       <p className="text-[18px] font-bold">{question.question}</p>
       <div className="flex space-x-3 mt-2">
         <motion.button
           onClick={updateLikes}
           whileTap={{ scale: 0.8 }}
-          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all ${
-            liked ? "bg-blue-500 text-white" : "bg-gray-200"
+          className={`py-1 px-2 rounded-lg cursor-pointer flex items-center space-x-2 transition-all ${
+            liked ? "bg-blue-500 text-white hover:bg-blue-600" : "bg-gray-200 text-black hover:bg-gray-400"
           }`}
         >
           <ThumbsUp className="w-4 h-4" />
@@ -92,8 +92,8 @@ const Post = ({ question }) => {
         <motion.button
           onClick={updateDislikes}
           whileTap={{ scale: 0.8 }}
-          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all ${
-            disliked ? "bg-red-500 text-white" : "bg-gray-200"
+          className={`py-1 px-2 rounded-lg flex cursor-pointer items-center space-x-2 transition-all ${
+            disliked ? "bg-red-500 text-white hover:bg-red-600" : "bg-gray-200 text-black hover:bg-gray-400"
           }`}
         >
           <ThumbsDown className="w-4 h-4" />
@@ -103,20 +103,26 @@ const Post = ({ question }) => {
         <motion.button
           onClick={handleCommentClick}
           whileTap={{ scale: 0.8 }}
-          className={`py-1 px-2 rounded-lg flex items-center space-x-2 transition-all bg-gray-200`}
+          className={`py-1 px-2 cursor-pointer hover:bg-gray-400 rounded-lg flex items-center space-x-2 transition-all bg-gray-200 text-black`}
         >
           <MessageSquare className="w-4 h-4" />
           <span>Answer</span>
         </motion.button>
 
         {question.userId === user.id && (
-          <div>
-          <motion.button className="text-[red]" onClick={handleDelete}>
-            <Trash className="w-4 h-4" />
-          </motion.button>
-          <motion.button onClick={handleUpdate}>
-            <Pen className="h-4 w-4"/>
-          </motion.button>
+          <div className="flex gap-4">
+            <motion.button
+              className="cursor-pointer bg-gray-200 hover:bg-gray-400 p-2 rounded-lg"
+              onClick={handleUpdate}
+            >
+              <Pen className="h-4 w-4 text-black" />
+            </motion.button>
+            <motion.button
+              className="text-[#f54263] hover:text-[red] cursor-pointer"
+              onClick={handleDelete}
+            >
+              <Trash2 className="w-5 h-5" />
+            </motion.button>
           </div>
         )}
       </div>

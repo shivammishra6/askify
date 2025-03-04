@@ -47,13 +47,13 @@ const Comments = () => {
   
 
   return (
-    <div>
+    <div className="min-h-screen pb-8">
       {questions
         .filter((question) => question._id === questionId) // Replace targetId with the desired ID
         .map((question) => (
-          <div key={question._id}>
+          <div key={question._id} className="m-3">
             <p>{question.username}</p>
-            <p>{question.question}</p>
+            <p className="text-[22px]">{question.question}</p>
           </div>
         ))}
 
@@ -64,7 +64,7 @@ const Comments = () => {
           setNewComment({ ...newComment, comment: e.target.value })
         }
         placeholder="Write your answer..."
-        className={`w-full px-4 py-2 border ${
+        className={`block px-4 py-2 border m-3 w-[300px] h-[50px] ${
           submitted && !newComment.comment
             ? "border-red-500"
             : "border-gray-300"
@@ -76,19 +76,20 @@ const Comments = () => {
 
       <button
         onClick={handleSubmit}
-        className="px-4 py-2 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        className="px-4 py-2 m-3 mb-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
       >
-        Answer
+        Submit
       </button>
+
+      <p className="text-[28px] font-bold m-4 mb-6">Answers</p>
 
       {comments
         .slice()
         .reverse()
         .map((comment) => (
-          <div key={comment._id}>
+          <div key={comment._id} className="m-4 mb-12">
             <p className="text-[14px]">{comment.username}</p>
             <p className="text-[18px] font-bold">{comment.comment}</p>
-
           </div>
         ))}
 
