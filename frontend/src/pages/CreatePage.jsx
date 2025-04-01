@@ -33,7 +33,7 @@ const CreatePage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#2e2d2c] p-4">
-      <div className="bg-black text-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+      <div className="bg-black text-white rounded-2xl p-6 w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">
           Ask a Question
         </h2>

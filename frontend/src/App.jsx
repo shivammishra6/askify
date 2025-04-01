@@ -17,8 +17,8 @@ function App() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="w-full border-b border-solid border-black-600">
-          <div className="flex justify-between max-w-[1200px] m-auto px-3 py-2 ">
+        <div className="w-full border-b border-solid border-black-200 fixed bg-black">
+          <div className="flex justify-between max-w-[1200px] m-auto p-3 ">
             <div className="flex gap-4">
               <Link to="/">
                 <img src="logo.png" className="w-7 h-7" alt="askify" />
