@@ -74,7 +74,7 @@ const Post = ({ question }) => {
   };
 
   return (
-    <div className="mb-10 bg-[#2e2d2c] rounded-2xl p-4">
+    <div className="mb-10 bg-[#2e2d2c] rounded-2xl p-4 min-w-[300px]">
       <p className="text-[14px]">{question.username}</p>
       <p className="text-[18px] font-bold">{question.question}</p>
       <div className="flex space-x-3 mt-2">
